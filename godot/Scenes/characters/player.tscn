@@ -20,3 +20,9 @@ shape = SubResource("CylinderShape3D_w8hu6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_302nb")
+
+[node name="FrontCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+
+[node name="BackCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 2)

@@ -16,26 +16,42 @@ public partial class player : CharacterBody3D
         if (!IsOnFloor())
             velocity.Y -= gravity * (float)delta;
 
-        // Handle Jump.
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-            velocity.Y = JumpVelocity;
-
-        // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
-        Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-        if (direction != Vector3.Zero)
-        {
-            velocity.X = direction.X * Speed;
-            velocity.Z = direction.Z * Speed;
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-            velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
-        }
-
         Velocity = velocity;
         MoveAndSlide();
     }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_up"))
+        {
+            var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
+
+            if (!frontRayCast.IsColliding()) {
+                var currentPosition = this.Position;
+                currentPosition.Z -= 2;
+                this.Position = currentPosition;
+            }
+        }
+
+        if (@event.IsActionPressed("ui_down"))
+        {
+           var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
+
+            if (!backRayCast.IsColliding()) {
+                var currentPosition = this.Position;
+                currentPosition.Z += 2;
+                this.Position = currentPosition;
+            }
+        }
+
+        if (@event.IsActionPressed("ui_left"))
+        {
+            // rotate to the left
+        }
+
+        if (@event.IsActionPressed("ui_right"))
+        {
+            // rotate to the right
+        }
+}
 }
