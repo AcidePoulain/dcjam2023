@@ -5,3 +5,5 @@ in trouble and we help you
 2. [How we want to work](./organisation.md)
 3. [Game pitch](./situation.md)
 4. [Gameplay document](./gameplay.md)
+
+For godot-related tasks go [there](./godot/README.md)
