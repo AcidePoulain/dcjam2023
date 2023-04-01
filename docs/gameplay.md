@@ -4,6 +4,10 @@
 You spawn from automatic navigo toilets.
 
 ## Exploration
+Your starting point is your affected metro station. From there you can go on and explore the rest of the network.
+Fraudsters appear everywhere outside of your station. You can locate a service door to go back easily to your starting point.
+
+There are other stations you can visit. Some are overrun by fraudsters but not all of them.
 
 ## Fights
 You can encounter users and fraudsters.
