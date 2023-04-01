@@ -22,7 +22,7 @@ public partial class player : CharacterBody3D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("ui_up"))
+        if (@event.IsActionPressed("forward"))
         {
             var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
 
@@ -33,7 +33,7 @@ public partial class player : CharacterBody3D
             }
         }
 
-        if (@event.IsActionPressed("ui_down"))
+        if (@event.IsActionPressed("backward"))
         {
            var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
 
@@ -44,12 +44,12 @@ public partial class player : CharacterBody3D
             }
         }
 
-        if (@event.IsActionPressed("ui_left"))
+        if (@event.IsActionPressed("rotate_left"))
         {
             // rotate to the left
         }
 
-        if (@event.IsActionPressed("ui_right"))
+        if (@event.IsActionPressed("rotate_right"))
         {
             // rotate to the right
         }
