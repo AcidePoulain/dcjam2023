@@ -31,6 +31,8 @@ public partial class player : CharacterBody3D
                 currentPosition.Z -= 2;
                 this.Position = currentPosition;
             }
+
+            return;
         }
 
         if (@event.IsActionPressed("backward"))
@@ -42,6 +44,8 @@ public partial class player : CharacterBody3D
                 currentPosition.Z += 2;
                 this.Position = currentPosition;
             }
+
+            return;
         }
 
         if (@event.IsActionPressed("rotate_left"))
