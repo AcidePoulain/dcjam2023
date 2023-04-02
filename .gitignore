@@ -11,3 +11,4 @@ godot/.godot/
 # Mono-specific ignores
 .mono/
 data_*/
+.idea/
