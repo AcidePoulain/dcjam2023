@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmks6w7ryy14a"]
+
+[ext_resource type="Texture2D" uid="uid://c8dpqs3g6j7px" path="res://Textures/floor_rails.png" id="1_pukdb"]
+[ext_resource type="Texture2D" uid="uid://c4jei6h62pl1u" path="res://Textures/floor_basic.png" id="2_fk10m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nqk0t"]
+albedo_texture = ExtResource("1_pukdb")
+texture_filter = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_g6dfd"]
+material = SubResource("StandardMaterial3D_nqk0t")
+size = Vector2(2, 2)
+center_offset = Vector3(0, -1, 0)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qnhw"]
+albedo_texture = ExtResource("2_fk10m")
+texture_filter = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sqanj"]
+material = SubResource("StandardMaterial3D_2qnhw")
+center_offset = Vector3(0, -1, 0)
+
+[node name="SceneRoot" type="Node3D"]
+
+[node name="FloorRail" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_g6dfd")
+
+[node name="FloorBasic" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+mesh = SubResource("PlaneMesh_sqanj")
