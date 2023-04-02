@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://v4gxqcon4lwi" path="res://Textures/wall_basic.png" id="1_31vb1"]
 [ext_resource type="PackedScene" uid="uid://b2jd7hdaj6jik" path="res://Scenes/characters/player.tscn" id="1_57mmm"]
 [ext_resource type="Texture2D" uid="uid://dr2t08py2wsdw" path="res://Textures/wall_map.png" id="2_eq2vo"]
-[ext_resource type="MeshLibrary" uid="uid://dby5jkka63303" path="res://Scenes/MeshLibraries/Floors.tres" id="4_x4hsv"]
+[ext_resource type="MeshLibrary" uid="uid://d3vo86vbphnwh" path="res://Scenes/MeshLibraries/Floors.tres" id="4_x4hsv"]
 [ext_resource type="MeshLibrary" uid="uid://dr1ab6fmk0le1" path="res://Scenes/MeshLibraries/Walls.tres" id="5_0wg7x"]
 [ext_resource type="MeshLibrary" uid="uid://ba1kg82651a04" path="res://Scenes/MeshLibraries/Decals.tres" id="6_b7mlu"]
 
