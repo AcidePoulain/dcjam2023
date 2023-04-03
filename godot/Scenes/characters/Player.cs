@@ -4,21 +4,6 @@ namespace DungeonCrawlerJam2023.Scenes.characters;
 
 public partial class Player : CharacterBody3D
 {
-    // Get the gravity from the project settings to be synced with RigidBody nodes.
-    private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
-    public override void _PhysicsProcess(double delta)
-    {
-        var velocity = Velocity;
-
-        // Add the gravity.
-        if (!IsOnFloor())
-            velocity.Y -= _gravity * (float)delta;
-
-        Velocity = velocity;
-        MoveAndSlide();
-    }
-
     // Used for movement animation
     private Tween _tween;
     public override void _Input(InputEvent @event)
@@ -34,42 +19,42 @@ public partial class Player : CharacterBody3D
         // use a tweener because it will block Player from reacting to input.
         if (!_tween.IsRunning())
         {
-        if (@event.IsActionPressed("forward"))
-        {
-            var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
+            if (@event.IsActionPressed("forward"))
+            {
+                var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
 
                 if (frontRayCast.IsColliding())
-            {
+                {
                     this.Translate(new Vector3(0, 0, -2));
-            }
+                }
 
                 return;
-        }
-        else if (@event.IsActionPressed("backward"))
-        {
-            var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
+            }
+            else if (@event.IsActionPressed("backward"))
+            {
+                var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
 
                 if (backRayCast.IsColliding())
-            {
+                {
                     this.Translate(new Vector3(0, 0, 2));
-            }
+                }
 
                 return;
-        }
-        else if (@event.IsActionPressed("rotate_left"))
-        {
+            }
+            else if (@event.IsActionPressed("rotate_left"))
+            {
                 _tween = this.GetTree().CreateTween();
-            var rotation = this.RotationDegrees;
-            rotation.Y += 90;
+                var rotation = this.RotationDegrees;
+                rotation.Y += 90;
                 _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
 
                 return;
-        }
-        else if (@event.IsActionPressed("rotate_right"))
-        {
+            }
+            else if (@event.IsActionPressed("rotate_right"))
+            {
                 _tween = this.GetTree().CreateTween();
-            var rotation = this.RotationDegrees;
-            rotation.Y -= 90;
+                var rotation = this.RotationDegrees;
+                rotation.Y -= 90;
                 _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
 
                 return;
