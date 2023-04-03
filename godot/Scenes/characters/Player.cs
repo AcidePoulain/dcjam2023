@@ -68,7 +68,7 @@ public partial class Player : CharacterBody3D
                 _tween = this.GetTree().CreateTween();
                 var rotation = this.RotationDegrees;
                 rotation.Y += 90;
-                _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+                _tween.TweenProperty(this, "rotation_degrees", rotation, 0.3f);
 
                 return;
             }
@@ -77,7 +77,7 @@ public partial class Player : CharacterBody3D
                 _tween = this.GetTree().CreateTween();
                 var rotation = this.RotationDegrees;
                 rotation.Y -= 90;
-                _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+                _tween.TweenProperty(this, "rotation_degrees", rotation, 0.3f);
 
                 return;
             }
