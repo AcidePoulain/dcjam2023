@@ -19,39 +19,61 @@ public partial class Player : CharacterBody3D
         MoveAndSlide();
     }
 
+    // Used for movement animation
+    private Tween _tween;
     public override void _Input(InputEvent @event)
     {
+        if (_tween == null)
+        {
+            _tween = this.GetTree().CreateTween();
+            _tween.Stop();
+        }
+
+        // This condition prevents us from processing input if tweening is in progress.
+        // Be aware that if you animate something else than a player movement, you should not
+        // use a tweener because it will block Player from reacting to input.
+        if (!_tween.IsRunning())
+        {
         if (@event.IsActionPressed("forward"))
         {
             var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
 
-            if (!frontRayCast.IsColliding())
+                if (frontRayCast.IsColliding())
             {
-                this.Translate(new Vector3(0, 0, -1));
+                    this.Translate(new Vector3(0, 0, -2));
             }
+
+                return;
         }
         else if (@event.IsActionPressed("backward"))
         {
             var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
 
-            if (!backRayCast.IsColliding())
+                if (backRayCast.IsColliding())
             {
-                this.Translate(new Vector3(0, 0, 1));
+                    this.Translate(new Vector3(0, 0, 2));
             }
+
+                return;
         }
         else if (@event.IsActionPressed("rotate_left"))
         {
-            var tween = this.CreateTween();
+                _tween = this.GetTree().CreateTween();
             var rotation = this.RotationDegrees;
             rotation.Y += 90;
-            tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+                _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+
+                return;
         }
         else if (@event.IsActionPressed("rotate_right"))
         {
-            var tween = this.CreateTween();
+                _tween = this.GetTree().CreateTween();
             var rotation = this.RotationDegrees;
             rotation.Y -= 90;
-            tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+                _tween.TweenProperty(this, "rotation_degrees", rotation, 1.0f);
+
+                return;
+            }
         }
     }
 }
