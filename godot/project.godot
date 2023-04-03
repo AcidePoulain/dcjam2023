@@ -48,4 +48,5 @@ rotate_left={
 
 [rendering]
 
+textures/decals/filter=2
 textures/canvas_textures/default_texture_filter=3
