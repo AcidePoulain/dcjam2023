@@ -23,6 +23,16 @@ mesh = SubResource("CapsuleMesh_302nb")
 
 [node name="FrontCollisionRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)
+collision_mask = 128
 
 [node name="BackCollisionRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, 2)
+collision_mask = 128
+
+[node name="LeftCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(-2, 0, 0)
+collision_mask = 128
+
+[node name="RightCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(2, 0, 0)
+collision_mask = 128

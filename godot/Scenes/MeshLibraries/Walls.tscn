@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://o5wcr1lj4dpb"]
+
+[ext_resource type="Texture2D" uid="uid://v4gxqcon4lwi" path="res://Textures/wall_basic.png" id="1_nd8eu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lj4k"]
+albedo_texture = ExtResource("1_nd8eu")
+uv1_scale = Vector3(3, 3, 3)
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_5eaag"]
+material = SubResource("StandardMaterial3D_0lj4k")
+size = Vector3(2, 2, 2)
+
+[node name="SceneRoot" type="Node3D"]
+
+[node name="Wall 1x1" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5eaag")
