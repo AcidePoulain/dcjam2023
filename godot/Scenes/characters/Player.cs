@@ -41,6 +41,28 @@ public partial class Player : CharacterBody3D
 
                 return;
             }
+            else if (@event.IsActionPressed("left"))
+            {
+                var backRayCast = GetNode<RayCast3D>("LeftCollisionRaycast");
+
+                if (backRayCast.IsColliding())
+                {
+                    this.Translate(new Vector3(-2, 0, 0));
+                }
+
+                return;
+            }
+            else if (@event.IsActionPressed("right"))
+            {
+                var backRayCast = GetNode<RayCast3D>("RightCollisionRaycast");
+
+                if (backRayCast.IsColliding())
+                {
+                    this.Translate(new Vector3(2, 0, 0));
+                }
+
+                return;
+            }
             else if (@event.IsActionPressed("rotate_left"))
             {
                 _tween = this.GetTree().CreateTween();
