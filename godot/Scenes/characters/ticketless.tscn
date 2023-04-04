@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwgnvt7qlx8cv"]
+
+[ext_resource type="Script" path="res://Scenes/characters/Ticketless.cs" id="1_jb76h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgnvh"]
+
+[node name="Ticketless" type="CharacterBody3D"]
+script = ExtResource("1_jb76h")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jgnvh")
+
+[node name="FrontCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+collision_mask = 128
+
+[node name="BackCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 2)
+collision_mask = 128
+
+[node name="LeftCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(-2, 0, 0)
+collision_mask = 128
+
+[node name="RightCollisionRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(2, 0, 0)
+collision_mask = 128

@@ -1,9 +1,8 @@
-#nullable enable
 using Godot;
 
 namespace DungeonCrawlerJam2023.Scenes.characters;
 
-public partial class Player : CharacterBody3D
+public partial class Player : GridBasedCharacter
 {
 	[Export]
 	public float TranslationDuration = 0.2F;
@@ -21,9 +20,7 @@ public partial class Player : CharacterBody3D
 
 		if (@event.IsActionPressed("forward"))
 		{
-			var frontRayCast = GetNode<RayCast3D>("FrontCollisionRaycast");
-
-			if (frontRayCast.IsColliding())
+			if (FrontRayCast.IsColliding())
 			{
 				InstantiateTween()
 					.TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(0, 0, -2)).Origin,
@@ -32,9 +29,7 @@ public partial class Player : CharacterBody3D
 		}
 		else if (@event.IsActionPressed("backward"))
 		{
-			var backRayCast = GetNode<RayCast3D>("BackCollisionRaycast");
-
-			if (backRayCast.IsColliding())
+			if (BackRayCast.IsColliding())
 			{
 				InstantiateTween()
 					.TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(0, 0, 2)).Origin,
@@ -43,9 +38,7 @@ public partial class Player : CharacterBody3D
 		}
 		else if (@event.IsActionPressed("left"))
 		{
-			var backRayCast = GetNode<RayCast3D>("LeftCollisionRaycast");
-
-			if (backRayCast.IsColliding())
+			if (LeftRayCast.IsColliding())
 			{
 				InstantiateTween()
 					.TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(-2, 0, 0)).Origin,
@@ -54,9 +47,7 @@ public partial class Player : CharacterBody3D
 		}
 		else if (@event.IsActionPressed("right"))
 		{
-			var backRayCast = GetNode<RayCast3D>("RightCollisionRaycast");
-
-			if (backRayCast.IsColliding())
+			if (RightRayCast.IsColliding())
 			{
 				InstantiateTween()
 					.TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(2, 0, 0)).Origin,

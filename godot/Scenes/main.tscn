@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsruy8djy5f4n"]
+[gd_scene load_steps=12 format=3 uid="uid://bsruy8djy5f4n"]
 
 [ext_resource type="Texture2D" uid="uid://v4gxqcon4lwi" path="res://Textures/wall_basic.png" id="1_31vb1"]
 [ext_resource type="PackedScene" uid="uid://b2jd7hdaj6jik" path="res://Scenes/characters/player.tscn" id="1_57mmm"]
@@ -6,6 +6,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dby5jkka63303" path="res://Scenes/MeshLibraries/Floors.tres" id="4_x4hsv"]
 [ext_resource type="MeshLibrary" uid="uid://dr1ab6fmk0le1" path="res://Scenes/MeshLibraries/Walls.tres" id="5_0wg7x"]
 [ext_resource type="MeshLibrary" uid="uid://ba1kg82651a04" path="res://Scenes/MeshLibraries/Decals.tres" id="6_b7mlu"]
+[ext_resource type="PackedScene" uid="uid://cwgnvt7qlx8cv" path="res://Scenes/characters/ticketless.tscn" id="7_8jmls"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ies0"]
 size = Vector3(90, 1, 90)
@@ -74,3 +75,7 @@ data = {
 "cells": PackedInt32Array(-131093, 65534, 1441792, 65515, 65534, 1441792, 65519, 8, 1441792)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Ticketless" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("7_8jmls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35173, 1.41148, 0)
+Target = NodePath("../Player")
