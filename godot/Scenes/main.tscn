@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsruy8djy5f4n"]
+[gd_scene load_steps=14 format=3 uid="uid://bsruy8djy5f4n"]
 
 [ext_resource type="Texture2D" uid="uid://v4gxqcon4lwi" path="res://Textures/wall_basic.png" id="1_31vb1"]
 [ext_resource type="PackedScene" uid="uid://b2jd7hdaj6jik" path="res://Scenes/characters/player.tscn" id="1_57mmm"]
@@ -6,6 +6,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dby5jkka63303" path="res://Scenes/MeshLibraries/Floors.tres" id="4_x4hsv"]
 [ext_resource type="MeshLibrary" uid="uid://dr1ab6fmk0le1" path="res://Scenes/MeshLibraries/Walls.tres" id="5_0wg7x"]
 [ext_resource type="MeshLibrary" uid="uid://ba1kg82651a04" path="res://Scenes/MeshLibraries/Decals.tres" id="6_b7mlu"]
+[ext_resource type="Script" path="res://Scenes/ProgressBarUpdate.cs" id="7_05081"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ies0"]
 size = Vector3(90, 1, 90)
@@ -22,6 +23,12 @@ texture_filter = 2
 [sub_resource type="BoxMesh" id="BoxMesh_x00u8"]
 material = SubResource("StandardMaterial3D_nkchp")
 size = Vector3(2, 2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjnrp"]
+bg_color = Color(0.741176, 0.14902, 0.294118, 1)
+
+[sub_resource type="Theme" id="Theme_fck7c"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_qjnrp")
 
 [node name="Main" type="Node"]
 
@@ -74,3 +81,33 @@ data = {
 "cells": PackedInt32Array(-131093, 65534, 1441792, 65515, 65534, 1441792, 65519, 8, 1441792)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 250.0
+offset_bottom = 40.0
+auto_translate = false
+
+[node name="Label" type="Label" parent="Control"]
+visible = false
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 39.0
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 40.0
+auto_translate = false
+theme = SubResource("Theme_fck7c")
+max_value = 20.0
+step = 1.0
+value = 20.0
+fill_mode = 1
+script = ExtResource("7_05081")
+
+[connection signal="TookDamage" from="Player" to="Control/ProgressBar" method="_OnPlayerTookDamage"]

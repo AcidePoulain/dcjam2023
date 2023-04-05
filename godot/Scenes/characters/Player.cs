@@ -4,6 +4,9 @@ namespace DungeonCrawlerJam2023.Scenes.characters;
 
 public partial class Player : CharacterBody3D
 {
+    [Signal]
+    public delegate void TookDamageEventHandler(float amount);
+
     // Used for movement animation
     private Tween _tween;
     public override void _Input(InputEvent @event)
@@ -82,5 +85,9 @@ public partial class Player : CharacterBody3D
                 return;
             }
         }
+    }
+
+    public void TakeDamage(float amount) {
+        EmitSignal(SignalName.TookDamage, amount);
     }
 }
