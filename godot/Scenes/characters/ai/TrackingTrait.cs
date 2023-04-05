@@ -4,12 +4,8 @@ namespace DungeonCrawlerJam2023.Scenes.characters.ai;
 
 public class TrackingTrait : IAITrait
 {
-    public bool CanSeeTarget { get; private set; }
-    public bool RememberTarget { get; private set; }
-
-    public GridBasedCharacter Target { get; }
-    private readonly ulong _trackingExpirationInMs;
     private readonly int _sightRangeSquared;
+    private readonly ulong _trackingExpirationInMs;
 
     private ulong _targetLastSeenInMs;
 
@@ -20,13 +16,17 @@ public class TrackingTrait : IAITrait
         _sightRangeSquared = sightRange * sightRange;
     }
 
+    public bool CanSeeTarget { get; private set; }
+    public bool RememberTarget { get; private set; }
+
+    public GridBasedCharacter Target { get; }
+
     public void Process(GridBasedCharacter self, double delta)
     {
         var currentTime = Time.GetTicksMsec();
-        var gridPos = self.GridPos();
-        var targetGridPos = Target.GridPos();
+        var gridPos = self.GridPos;
+        var targetGridPos = Target.GridPos;
 
-        // Sharing an axis
         if ((gridPos - targetGridPos).Abs().LengthSquared() <= _sightRangeSquared)
         {
             var spaceState = self.GetWorld3D().DirectSpaceState;
@@ -42,7 +42,9 @@ public class TrackingTrait : IAITrait
             }
         }
         else
+        {
             CanSeeTarget = false;
+        }
 
         RememberTarget = currentTime - _targetLastSeenInMs > _trackingExpirationInMs;
     }

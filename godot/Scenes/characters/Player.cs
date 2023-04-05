@@ -4,12 +4,10 @@ namespace DungeonCrawlerJam2023.Scenes.characters;
 
 public partial class Player : GridBasedCharacter
 {
-    [Export]
-    public float TranslationDuration = 0.2F;
-    [Export]
-    public float RotationDuration = 0.3F;
-
     private Tween? _tween;
+    [Export] public float RotationDuration = 0.3F;
+    [Export] public float TranslationDuration = 0.2F;
+
 
     public override void _Input(InputEvent @event)
     {
@@ -20,39 +18,23 @@ public partial class Player : GridBasedCharacter
 
         if (@event.IsActionPressed("forward"))
         {
-            if (FrontRayCast.IsColliding())
-            {
-                InstantiateTween()
-                    .TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(0, 0, -2)).Origin,
-                        TranslationDuration);
-            }
+            var nextPosition = Transform.TranslatedLocal(new Vector3(0, 0, -2)).Origin;
+            MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("backward"))
         {
-            if (BackRayCast.IsColliding())
-            {
-                InstantiateTween()
-                    .TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(0, 0, 2)).Origin,
-                        TranslationDuration);
-            }
+            var nextPosition = Transform.TranslatedLocal(new Vector3(0, 0, 2)).Origin;
+            MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("left"))
         {
-            if (LeftRayCast.IsColliding())
-            {
-                InstantiateTween()
-                    .TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(-2, 0, 0)).Origin,
-                        TranslationDuration);
-            }
+            var nextPosition = Transform.TranslatedLocal(new Vector3(-2, 0, 0)).Origin;
+            MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("right"))
         {
-            if (RightRayCast.IsColliding())
-            {
-                InstantiateTween()
-                    .TweenProperty(this, "position", Transform.TranslatedLocal(new Vector3(2, 0, 0)).Origin,
-                        TranslationDuration);
-            }
+            var nextPosition = Transform.TranslatedLocal(new Vector3(2, 0, 0)).Origin;
+            MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("rotate_left"))
         {
@@ -66,6 +48,17 @@ public partial class Player : GridBasedCharacter
             rotation.Y -= 90;
             InstantiateTween().TweenProperty(this, "rotation_degrees", rotation, RotationDuration);
         }
+    }
+
+    private void MoveToCell(Vector3 nextPosition)
+    {
+        var nextCell = SnapPositionToGrid(nextPosition);
+
+        if (Father == null || !Father.IsCellValid(nextCell) || !Father.IsCellFree(nextCell)) return;
+
+        InstantiateTween()
+            .TweenProperty(this, "position", nextPosition, TranslationDuration);
+        Father.MoveToCell(this, nextCell);
     }
 
     private Tween InstantiateTween()
