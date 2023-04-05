@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="DungeonCrawlerJam2023"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/title.tscn"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+BackgroundMusic="*res://Sound/background_music.tscn"
 
 [dotnet]
 
