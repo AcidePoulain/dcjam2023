@@ -36,3 +36,12 @@ collision_mask = 128
 [node name="RightCollisionRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(2, 0, 0)
 collision_mask = 128
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.953517, 0.301338, 0, -0.301338, 0.953517, 0, 1, 0)
+light_color = Color(0.831373, 0.823529, 0.67451, 1)
+light_energy = 6.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_length = 20.0
+spot_range = 10.0
