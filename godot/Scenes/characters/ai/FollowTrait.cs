@@ -37,15 +37,15 @@ public class FollowTrait : IAITrait
         var cost = 0;
         while (open.Count > 0)
         {
-            var u = open.Dequeue();
-            if (u.X == end.X && u.Y == end.Y) return closed.First();
+            var currentTile = open.Dequeue();
+            if (currentTile.X == end.X && currentTile.Y == end.Y) return closed.First();
 
             var possible_neighbors = new Vector2I[4]
             {
-                new(u.X, u.Y + 1),
-                new(u.X, u.Y - 1),
-                new(u.X + 1, u.Y),
-                new(u.X - 1, u.Y)
+                new(currentTile.X, currentTile.Y + 1),
+                new(currentTile.X, currentTile.Y - 1),
+                new(currentTile.X + 1, currentTile.Y),
+                new(currentTile.X - 1, currentTile.Y)
             };
 
             foreach (var neighbor in possible_neighbors)
@@ -70,7 +70,7 @@ public class FollowTrait : IAITrait
                     }
             }
 
-            closed.Add(u);
+            closed.Add(currentTile);
             cost++;
         }
 
