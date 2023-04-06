@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg325k1rmo21m"]
+[gd_scene load_steps=2 format=3 uid="uid://kfb8se6imkij"]
 
 [ext_resource type="AudioStream" uid="uid://w0v1ejc6lpt5" path="res://Sound/JamDC.wav" id="1_qcydi"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
 stream = ExtResource("1_qcydi")
+volume_db = -20.0
 autoplay = true
