@@ -38,7 +38,7 @@ public class FollowTrait : IAITrait
         while (open.Count > 0)
         {
             var currentTile = open.Dequeue();
-            if (currentTile.X == end.X && currentTile.Y == end.Y) return closed.First();
+            if (currentTile.X == end.X && currentTile.Y == end.Y) return closed[1];
 
             var possible_neighbors = new Vector2I[4]
             {
