@@ -60,11 +60,12 @@ public partial class Player : GridBasedCharacter
     {
         var nextCell = SnapPositionToGrid(nextPosition);
 
-        if (Father == null || !Father.IsCellValid(nextCell) || !Father.IsCellFree(nextCell)) return;
+        if (!Father.IsCellValid(nextCell) || !Father.IsCellFree(nextCell)) return;
 
         InstantiateTween()
             .TweenProperty(this, "position", nextPosition, TranslationDuration);
         Father.MoveToCell(this, nextCell);
+        TurnManager.DoNextTurn();
     }
 
     private Tween InstantiateTween()

@@ -4,7 +4,7 @@ using Godot;
 
 namespace DungeonCrawlerJam2023.Scenes.characters.ai;
 
-public class FollowTrait : IAITrait
+public class FollowTrait : IAiTrait
 {
     private readonly TrackingTrait _tracker;
 
@@ -13,17 +13,25 @@ public class FollowTrait : IAITrait
         _tracker = tracker;
     }
 
-    public void Process(GridBasedCharacter self, double delta)
+    public void Process(GridBasedCharacter self, int currentTurn)
     {
+        if (_tracker is { CanSeeTarget: false, RememberTarget: false }) return;
+        GD.Print("Following target");
+
         var gridPos = self.GridPos;
         var targetGridPos = _tracker.Target.GridPos;
 
-        // TODO
+        var nextPosition = GetNextNodeAStar(gridPos, targetGridPos, self.Father.Grid);
+
+        if (nextPosition == gridPos) return;
+
+        Move(self, nextPosition);
+        GD.Print($"Moving to {nextPosition}");
     }
 
     private void Move(GridBasedCharacter self, Vector2I destination)
     {
-        self.Father?.MoveToCell(self, destination);
+        self.Father.MoveToCell(self, destination);
     }
 
     private Vector2I GetNextNodeAStar(Vector2I start, Vector2I end, params Vector2I[] nodes)
@@ -40,7 +48,7 @@ public class FollowTrait : IAITrait
             var currentTile = open.Dequeue();
             if (currentTile.X == end.X && currentTile.Y == end.Y) return closed[1];
 
-            var possible_neighbors = new Vector2I[4]
+            var neighbors = new Vector2I[]
             {
                 new(currentTile.X, currentTile.Y + 1),
                 new(currentTile.X, currentTile.Y - 1),
@@ -48,7 +56,7 @@ public class FollowTrait : IAITrait
                 new(currentTile.X - 1, currentTile.Y)
             };
 
-            foreach (var neighbor in possible_neighbors)
+            foreach (var neighbor in neighbors)
             {
                 // These gymnastics are needed because
                 // I can not check if a position is in our openlist.

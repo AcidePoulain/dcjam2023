@@ -2,17 +2,17 @@
 
 namespace DungeonCrawlerJam2023.Scenes.characters.ai;
 
-public class TrackingTrait : IAITrait
+public class TrackingTrait : IAiTrait
 {
     private readonly int _sightRangeSquared;
-    private readonly ulong _trackingExpirationInMs;
+    private readonly int _trackingExpirationInTurns;
 
-    private ulong _targetLastSeenInMs;
+    private int _targetLastSeenTurn;
 
-    public TrackingTrait(GridBasedCharacter target, ulong trackingExpirationInMs, int sightRange)
+    public TrackingTrait(GridBasedCharacter target, int trackingExpirationInTurns, int sightRange)
     {
         Target = target;
-        _trackingExpirationInMs = trackingExpirationInMs;
+        _trackingExpirationInTurns = trackingExpirationInTurns;
         _sightRangeSquared = sightRange * sightRange;
     }
 
@@ -21,9 +21,8 @@ public class TrackingTrait : IAITrait
 
     public GridBasedCharacter Target { get; }
 
-    public void Process(GridBasedCharacter self, double delta)
+    public void Process(GridBasedCharacter self, int currentTurn)
     {
-        var currentTime = Time.GetTicksMsec();
         var gridPos = self.GridPos;
         var targetGridPos = Target.GridPos;
 
@@ -38,7 +37,7 @@ public class TrackingTrait : IAITrait
             if (result.Count != 0)
             {
                 CanSeeTarget = true;
-                _targetLastSeenInMs = currentTime;
+                _targetLastSeenTurn = currentTurn;
             }
         }
         else
@@ -46,6 +45,6 @@ public class TrackingTrait : IAITrait
             CanSeeTarget = false;
         }
 
-        RememberTarget = currentTime - _targetLastSeenInMs > _trackingExpirationInMs;
+        RememberTarget = currentTurn - _targetLastSeenTurn > _trackingExpirationInTurns;
     }
 }

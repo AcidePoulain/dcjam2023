@@ -4,7 +4,8 @@ namespace DungeonCrawlerJam2023.Scenes.characters;
 
 public abstract partial class GridBasedCharacter : CharacterBody3D
 {
-    public GridFather? Father { get; private set; }
+    public GridFather Father { get; private set; } = null!;
+    public TurnManager TurnManager { get; private set; } = null!;
 
     public Vector2I GridPos => SnapPositionToGrid(Position);
 
@@ -13,6 +14,7 @@ public abstract partial class GridBasedCharacter : CharacterBody3D
         base._Ready();
 
         Father = GetParent<GridFather>();
+        TurnManager = GetNode<TurnManager>("/root/Main/TurnManager");
     }
 
     public static Vector2I SnapPositionToGrid(Vector3 position)

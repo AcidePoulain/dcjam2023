@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerJam2023.Scenes.characters.ai;
 
-public interface IAITrait
+public interface IAiTrait
 {
-    void Process(GridBasedCharacter self, double delta);
+    void Process(GridBasedCharacter self, int currentTurn);
 }
