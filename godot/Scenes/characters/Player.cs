@@ -16,24 +16,30 @@ public partial class Player : GridBasedCharacter
         // use a tweener because it will block Player from reacting to input.
         if (_tween != null && _tween.IsRunning()) return;
 
+        var walkingSound = GetNode<AudioStreamPlayer3D>("WalkSound");
+
         if (@event.IsActionPressed("forward"))
         {
             var nextPosition = Transform.TranslatedLocal(new Vector3(0, 0, -2)).Origin;
+            walkingSound.Play();
             MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("backward"))
         {
             var nextPosition = Transform.TranslatedLocal(new Vector3(0, 0, 2)).Origin;
+            walkingSound.Play();
             MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("left"))
         {
             var nextPosition = Transform.TranslatedLocal(new Vector3(-2, 0, 0)).Origin;
+            walkingSound.Play();
             MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("right"))
         {
             var nextPosition = Transform.TranslatedLocal(new Vector3(2, 0, 0)).Origin;
+            walkingSound.Play();
             MoveToCell(nextPosition);
         }
         else if (@event.IsActionPressed("rotate_left"))
