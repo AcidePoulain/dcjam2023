@@ -36,6 +36,7 @@ public class FollowTrait : IAiTrait
 
     private Vector2I GetNextNodeAStar(Vector2I start, Vector2I end, params Vector2I[] nodes)
     {
+        var positionTree = new Dictionary<Vector2I, Vector2I>();
         var closed = new List<Vector2I>();
         var open = new PriorityQueue<Vector2I, int>();
         open.Enqueue(start, 0);
@@ -46,7 +47,18 @@ public class FollowTrait : IAiTrait
         while (open.Count > 0)
         {
             var currentTile = open.Dequeue();
-            if (currentTile.X == end.X && currentTile.Y == end.Y) return closed[1];
+            if (currentTile.X == end.X && currentTile.Y == end.Y)
+            {
+                // Rebuild the path we took to get here
+                var lastPos = currentTile;
+                var beforeLastPos = currentTile;
+                while (positionTree.ContainsKey(lastPos)) {
+                    beforeLastPos = lastPos;
+                    lastPos = positionTree[lastPos];
+                }
+
+                return beforeLastPos;
+            }
 
             var neighbors = new Vector2I[]
             {
@@ -75,6 +87,7 @@ public class FollowTrait : IAiTrait
                         // knowing that a point will be farther or closer is enough.
                         var distance = (int)Mathf.Pow(neighbor.X - end.X, 2) + (int)Mathf.Pow(neighbor.Y - end.Y, 2);
                         open.Enqueue(neighbor, cost + distance);
+                        positionTree.Add(neighbor, currentTile);
                     }
             }
 
