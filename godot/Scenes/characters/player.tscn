@@ -22,22 +22,6 @@ shape = SubResource("CylinderShape3D_w8hu6")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_302nb")
 
-[node name="FrontCollisionRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -2)
-collision_mask = 128
-
-[node name="BackCollisionRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, 2)
-collision_mask = 128
-
-[node name="LeftCollisionRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(-2, 0, 0)
-collision_mask = 128
-
-[node name="RightCollisionRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(2, 0, 0)
-collision_mask = 128
-
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.953517, 0.301338, 0, -0.301338, 0.953517, 0, 1, 0)
 light_color = Color(0.831373, 0.823529, 0.67451, 1)

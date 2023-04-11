@@ -7,6 +7,8 @@ namespace DungeonCrawlerJam2023.Scenes.characters.ai;
 public class FollowTrait : IAiTrait
 {
     private readonly TrackingTrait _tracker;
+    private Tween? _tween;
+    [Export] public float TranslationDuration = 0.2F;
 
     public FollowTrait(TrackingTrait tracker)
     {
@@ -16,17 +18,30 @@ public class FollowTrait : IAiTrait
     public void Process(GridBasedCharacter self, int currentTurn)
     {
         if (_tracker is { CanSeeTarget: false, RememberTarget: false }) return;
-        GD.Print("Following target");
 
         var gridPos = self.GridPos;
         var targetGridPos = _tracker.Target.GridPos;
+        GD.Print($"Following target{targetGridPos}");
+
+        if ((gridPos - targetGridPos).LengthSquared() == 1)
+        {
+            GD.Print("Already adjacent to Target");
+            return;
+        }
 
         var nextPosition = GetNextNodeAStar(gridPos, targetGridPos, self.Father.Grid);
 
         if (nextPosition == gridPos) return;
 
         Move(self, nextPosition);
-        GD.Print($"Moving to {nextPosition}");
+        GD.Print($"Moving from {gridPos} to {nextPosition}");
+
+        self.TargetPosition = new Vector3(nextPosition.X * 2 + 1, self.Position.Y, nextPosition.Y * 2 + 1);
+    }
+
+    private Tween InstantiateTween(Node self)
+    {
+        return _tween = self.GetTree().CreateTween();
     }
 
     private void Move(GridBasedCharacter self, Vector2I destination)
@@ -52,7 +67,8 @@ public class FollowTrait : IAiTrait
                 // Rebuild the path we took to get here
                 var lastPos = currentTile;
                 var beforeLastPos = currentTile;
-                while (positionTree.ContainsKey(lastPos)) {
+                while (positionTree.ContainsKey(lastPos))
+                {
                     beforeLastPos = lastPos;
                     lastPos = positionTree[lastPos];
                 }

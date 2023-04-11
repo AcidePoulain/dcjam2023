@@ -7,7 +7,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dr1ab6fmk0le1" path="res://Scenes/MeshLibraries/Walls.tres" id="5_0wg7x"]
 [ext_resource type="Script" path="res://Scenes/FloorGridMap.cs" id="5_v0r5o"]
 [ext_resource type="MeshLibrary" uid="uid://ba1kg82651a04" path="res://Scenes/MeshLibraries/Decals.tres" id="6_b7mlu"]
-[ext_resource type="PackedScene" uid="uid://beabf52fg1ymd" path="res://Scenes/characters/ticketless.tscn" id="7_8jmls"]
+[ext_resource type="PackedScene" uid="uid://cwgnvt7qlx8cv" path="res://Scenes/characters/ticketless.tscn" id="7_8jmls"]
 [ext_resource type="Script" path="res://Scenes/GridFather.cs" id="8_ds04y"]
 [ext_resource type="Script" path="res://Scenes/TurnManager.cs" id="10_dl1nv"]
 
@@ -82,12 +82,12 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="GridFather" type="Node" parent="."]
 script = ExtResource("8_ds04y")
 
-[node name="Ticketless" parent="GridFather" node_paths=PackedStringArray("Target") instance=ExtResource("7_8jmls")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.352, 0, -1)
-Target = NodePath("../Player")
-
 [node name="Player" parent="GridFather" instance=ExtResource("1_57mmm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91171, 1, -0.878788)
+
+[node name="Ticketless" parent="GridFather" node_paths=PackedStringArray("Target") instance=ExtResource("7_8jmls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+Target = NodePath("../Player")
 
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("10_dl1nv")

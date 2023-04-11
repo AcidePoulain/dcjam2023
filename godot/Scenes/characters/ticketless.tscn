@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://beabf52fg1ymd"]
+[gd_scene load_steps=4 format=3 uid="uid://cwgnvt7qlx8cv"]
 
 [ext_resource type="Script" path="res://Scenes/characters/Ticketless.cs" id="1_jb76h"]
 [ext_resource type="PackedScene" uid="uid://7akuchjs3mvm" path="res://Assets/Humanoids.glb" id="2_vtlex"]
@@ -9,8 +9,10 @@
 script = ExtResource("1_jb76h")
 
 [node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
+
+[node name="Humanoids" parent="Pivot" instance=ExtResource("2_vtlex")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_jgnvh")
-
-[node name="Humanoids" parent="." instance=ExtResource("2_vtlex")]

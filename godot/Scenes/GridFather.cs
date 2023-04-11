@@ -7,11 +7,10 @@ namespace DungeonCrawlerJam2023.Scenes;
 
 public partial class GridFather : Node
 {
-    public Vector2I[] Grid { get; set; } = null!;
-
     private readonly Dictionary<Vector2I, GridBasedCharacter> _occupancyMap = new();
 
     private GridBasedCharacter[] _children = null!;
+    public Vector2I[] Grid { get; set; } = null!;
 
     public override void _Ready()
     {
@@ -27,8 +26,14 @@ public partial class GridFather : Node
 
     public void MoveToCell(GridBasedCharacter character, Vector2I destination)
     {
-        var previousCell = character.GridPos;
-        _occupancyMap.Remove(previousCell);
+        var matchingCells = _occupancyMap
+            .Where(value => value.Value == character)
+            .Select(entry => entry.Key)
+            .ToArray();
+
+        if (matchingCells.Length != 0)
+            _occupancyMap.Remove(matchingCells.First());
+
         _occupancyMap[destination] = character;
     }
 

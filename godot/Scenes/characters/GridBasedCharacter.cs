@@ -2,7 +2,7 @@ using Godot;
 
 namespace DungeonCrawlerJam2023.Scenes.characters;
 
-public abstract partial class GridBasedCharacter : CharacterBody3D
+public abstract partial class GridBasedCharacter : SteerableBody3D
 {
     public GridFather Father { get; private set; } = null!;
     public TurnManager TurnManager { get; private set; } = null!;
